@@ -38,3 +38,12 @@ Run one of the scripts as follows:
 or
 ./script01.sh nginx.log output.csv "Add analyzed logs"
 ```
+To automate the process, you can add the following cron job:
+```
+crontab -e
+```
+For example:
+```
+0 0 * * * /path/to/script.sh /path/to/nginx.log /path/to/analysis_result.csv "Daily log update"
+0 0 * * * /path/to/script01.sh /path/to/nginx.log /path/to/output.csv "Daily log update"
+```
