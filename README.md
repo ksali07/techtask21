@@ -14,3 +14,4 @@ We will also add a count of the total number of requests:
 ```
 TOTAL_REQUESTS=$(wc -l < "$LOG_FILE")
 ```
+Detailed implementation of the filter, adding and pushing changes can be found in the script.sh file.
