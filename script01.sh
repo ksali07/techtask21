@@ -25,11 +25,10 @@ echo "$SEPARATOR" >> "$OUTPUT_FILE"
 
 awk '
 {
-    # Витягуємо IP, Date, Request, Status, Size з логу
     match($0, /^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+) - - \[([^\]]+)\] "(.*)" ([0-9]+) ([0-9\-]+) .*$/, arr);
     if (arr[1] && arr[2] && arr[3] && arr[4] && arr[5]) {
-        # Форматуємо в таблицю
-        printf "%-15s | %-18s | %-50s | %-6s | %-6s\n", arr[1], arr[2], arr[3], arr[4], arr[5];
+        
+	    printf "%-15s | %-18s | %-50s | %-6s | %-6s\n", arr[1], arr[2], arr[3], arr[4], arr[5];
     }
 }' "$LOG_FILE" >> "$OUTPUT_FILE"
 
