@@ -14,18 +14,15 @@ if [ ! -f "$LOG_FILE" ]; then
     exit 1
 fi
 
-# Створення або очищення вихідного файлу
 echo "NGINX Log Analysis" > "$OUTPUT_FILE"
 echo "===================" >> "$OUTPUT_FILE"
 
-# Сортування IP-адрес за кількістю запитів
 echo "Top IPs by Count" >> "$OUTPUT_FILE"
 echo "-----------------" >> "$OUTPUT_FILE"
 awk '{print $1}' "$LOG_FILE" | sort | uniq -c | sort -nr | awk '{print $2 "," $1}' >> "$OUTPUT_FILE"
 
 echo "-----------------" >> "$OUTPUT_FILE"
 
-# Підрахунок загальної кількості запитів
 echo "Total Requests Count" >> "$OUTPUT_FILE"
 echo "---------------------" >> "$OUTPUT_FILE"
 TOTAL_REQUESTS=$(wc -l < "$LOG_FILE")
@@ -33,11 +30,9 @@ echo "Total Requests: $TOTAL_REQUESTS" >> "$OUTPUT_FILE"
 
 echo "---------------------" >> "$OUTPUT_FILE"
 
-# Виключення зайвих файлів перед комітом
 echo "Excluding unnecessary files from Git..."
 git rm --cached -r Dockerfile id_rsa known_hosts > /dev/null 2>&1 || true
 
-# Додавання та пуш змін
 echo "Adding and committing changes..."
 git add "$OUTPUT_FILE"
 git commit -m "$COMMIT_MESSAGE"

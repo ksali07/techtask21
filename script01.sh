@@ -14,19 +14,15 @@ if [ ! -f "$LOG_FILE" ]; then
     exit 1
 fi
 
-# Створення або очищення вихідного файлу
 echo "NGINX Log Analysis" > "$OUTPUT_FILE"
 echo "===================" >> "$OUTPUT_FILE"
 
-# Форматування таблиці
 HEADER="IP Address    | Date & Time        | Request                                             | Status | Size"
 SEPARATOR="------------------------------------------------------------------------------------------------------------"
 
-# Додати заголовок таблиці
 echo "$HEADER" >> "$OUTPUT_FILE"
 echo "$SEPARATOR" >> "$OUTPUT_FILE"
 
-# Обробка лог-файлу
 awk '
 {
     # Витягуємо IP, Date, Request, Status, Size з логу
@@ -37,13 +33,10 @@ awk '
     }
 }' "$LOG_FILE" >> "$OUTPUT_FILE"
 
-# Додавання роздільника після таблиці
 echo "$SEPARATOR" >> "$OUTPUT_FILE"
 
-# Виключення зайвих файлів перед комітом
 git rm --cached -r Dockerfile id_rsa known_hosts > /dev/null 2>&1 || true
 
-# Додавання та пуш змін
 echo "Adding and committing changes..."
 git add "$OUTPUT_FILE"
 git commit -m "$COMMIT_MESSAGE"
